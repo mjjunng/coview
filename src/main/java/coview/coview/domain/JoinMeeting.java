@@ -6,16 +6,28 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@IdClass(JoinMeetingId.class)
 public class JoinMeeting {
 
-    @Id
+    @Id @GeneratedValue
+    @Column(name = "join_meeting_id")
+    private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "meeting_id")
     private Meeting meeting;
+
+    @Column(name = "meeting_name")
+    private String name;
+
+    public JoinMeeting(Member member, Meeting meeting, String name) {
+        this.member = member;
+        this.meeting = meeting;
+        this.name = name;
+    }
+
+
 }

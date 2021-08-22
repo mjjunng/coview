@@ -1,8 +1,11 @@
 package coview.coview.service;
 
+import coview.coview.domain.JoinMeeting;
+import coview.coview.domain.Meeting;
 import coview.coview.domain.Member;
 import coview.coview.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,9 +14,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final MeetingService meetingService;
 
     /**
      * 회원 가입
@@ -33,7 +38,18 @@ public class MemberService {
     }
 
     /**
-     * 미팅 조회
+     * 회원 조회
      */
-//    public
+    public Member findOne(Long memberId){
+        return memberRepository.findOne(memberId);
+    }
+
+    /**
+     * 멤버 조회 -> 해당 멤버의 미팅 목록 불러오기 위해 join Meeting과 join fetch 함
+     */
+//    public List<Member> findById(Long memberId){
+//        return memberRepository.findById(memberId);
+//    }
+
+
 }

@@ -15,6 +15,10 @@ public class Meeting {
     @Column(name = "meeting_id")
     private Long id;
 
-    @Column(name = "meeting_name")
-    private String name;
+//    @Column(name = "meeting_name")
+//    private String name;
+//
+//    public Meeting(String name) {
+//        this.name = name;
+//    }
 }

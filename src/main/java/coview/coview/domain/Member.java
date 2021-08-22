@@ -33,4 +33,21 @@ public class Member {
         this.name = name;
         this.status = status;
     }
+
+    //==비지니스 로직==
+    /**
+     * 회원 상태 호스트로 바꾸기
+     */
+    public void changeStatus(){
+        this.status = MemberStatus.HOST;
+    }
+
+
+    /**
+     * ==연관관계 메서드
+     */
+    public void setMeetings(JoinMeeting joinMeeting){
+        getMeetings().add(joinMeeting);
+
+    }
 }

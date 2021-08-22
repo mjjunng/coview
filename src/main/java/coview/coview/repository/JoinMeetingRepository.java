@@ -1,0 +1,29 @@
+package coview.coview.repository;
+
+import coview.coview.domain.JoinMeeting;
+import coview.coview.domain.JoinMeetingId;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+
+@Repository
+@RequiredArgsConstructor
+public class JoinMeetingRepository {
+
+    private final EntityManager em;
+
+    public void save(JoinMeeting meeting){
+        em.persist(meeting);
+    }
+
+    public JoinMeeting findOne(Long id){
+        return em.find(JoinMeeting.class, id);
+    }
+
+    public List<JoinMeeting> findAll(){
+        return em.createQuery("select m from JoinMeeting m", JoinMeeting.class)
+                .getResultList();
+    }
+}

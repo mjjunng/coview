@@ -1,5 +1,6 @@
 package coview.coview.repository;
 
+import coview.coview.domain.JoinMeeting;
 import coview.coview.domain.Meeting;
 import coview.coview.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +34,11 @@ public class MemberRepository {
                 .getResultList();
     }
 
-//    public List<Meeting> findMeetings(){
-//        return em.createQuery()
-//    }
+    public List<Member> findById(Long memberId){
+        return em.createQuery("select distict m from Member m join fetch m.meetings" +
+                        "where m.id=:id", Member.class).setParameter("id", memberId)
+                .getResultList();
+
+    }
 
 }
