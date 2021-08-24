@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -26,17 +28,16 @@ public class MemberController {
     }
 
     @PostMapping(value = "/login")
-    public String login(@Valid LoginForm loginForm, BindingResult result, Model model){
+    public String login(@Valid LoginForm loginForm, BindingResult result, Model model,
+                        RedirectAttributes rttr){
         if (result.hasErrors()){
             return "member/loginForm";
         }
         Member member = new Member(loginForm.getEmail(), loginForm.getPassword(), loginForm.getMember_name(), MemberStatus.MEMBER);
-        memberService.join(member);
-
-        // 현재 회원의 id값을 통해서 회원이 참여하고 있는 meeting List 뿌려줌
-        model.addAttribute("memberId", member.getId());
-        model.addAttribute("meetings", member.getMeetings());
-        return "/dashboard";
+        Long memberId = memberService.join(member);
+        //log.info("login_memberId: --" + memberId + "---");
+        rttr.addFlashAttribute("memberId", memberId);
+        return "redirect:/dashboard";
 
         /**
          * login하고 dashboad 페이지로 이동해야 함

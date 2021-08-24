@@ -12,15 +12,13 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody><tr th:each="meeting : ${meetings}">
+            <tbody>
+            <tr th:each="meeting : ${meetings}">
                 <td th:text="${meeting.id}"></td>
                 <td th:text="${meeting.name}"></td>
-                <td>
-                    <a href="#" th:href="@{/{id}/dashboard/new (id=${memberId})}"
-                       class="btn btn-primary" role="button">회의 생성</a>
-                </td>
             </tr>
             </tbody>
+            <a th:href="@{/dashboard/new/{id} (id=${memberId})}">회의 생성</a>
         </table>
     </div>
     <div th:replace="fragments/footer :: footer"/>

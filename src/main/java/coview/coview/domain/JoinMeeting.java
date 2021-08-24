@@ -23,6 +23,8 @@ public class JoinMeeting {
     @Column(name = "meeting_name")
     private String name;
 
+    public JoinMeeting (){}
+
     public JoinMeeting(Member member, Meeting meeting, String name) {
         this.member = member;
         this.meeting = meeting;

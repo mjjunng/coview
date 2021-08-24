@@ -31,7 +31,9 @@ public class JoinMeetingService {
     /**
      * meeting 생성
      */
+    @Transactional
     public Long createMeeting(Long memberId, String name){
+
         Meeting meeting = new Meeting();
         meetingService.save(meeting);
         Member findMember = memberService.findOne(memberId);

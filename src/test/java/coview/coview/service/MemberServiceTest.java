@@ -66,6 +66,8 @@ public class MemberServiceTest {
 
         memberService.join(member);
 
+        Assertions.assertThat(member.getId()).isEqualTo(1L);
+
         //when
         Long meetingId = joinMeetingService.createMeeting(member.getId(), "test1");
 
