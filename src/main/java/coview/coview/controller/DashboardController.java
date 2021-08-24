@@ -42,14 +42,14 @@ public class DashboardController {
         if (flashMap != null){
             memberId = (Long) flashMap.get("memberId");
         }
-        log.info("dashboard_memberId: " + memberId + "---");
+//        log.info("dashboard_memberId: " + memberId + "---");
         Member findMember = memberService.findOne(memberId);
         model.addAttribute("memberId", findMember.getId());
         model.addAttribute("meetings", findMember.getMeetings());
-        log.info("findMemberId: " + findMember.getId());
-        if (findMember.getMeetings().size() > 0){
-            log.info("meetings: " + findMember.getMeetings().get(0).getName());
-        }
+//        log.info("findMemberId: " + findMember.getId());
+//        if (findMember.getMeetings().size() > 0){
+//            log.info("meetings: " + findMember.getMeetings().get(0).getName());
+//        }
         return "dashboard";
     }
 

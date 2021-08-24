@@ -21,27 +21,64 @@ import javax.validation.Valid;
 public class MemberController {
     private final MemberService memberService;
 
+    /**
+     * 로그인
+     */
     @GetMapping(value = "/login")
     public String loginForm(Model model){
         model.addAttribute("loginForm", new LoginForm());
         return "member/loginForm";
     }
 
+
+    /**
+     * login하고 dashboad 페이지로 이동해야 함
+     * 이때 dashboard에 현재 회원 id값 넘김
+     */
     @PostMapping(value = "/login")
-    public String login(@Valid LoginForm loginForm, BindingResult result, Model model,
+    public String login(@Valid LoginForm loginForm, BindingResult result,
                         RedirectAttributes rttr){
         if (result.hasErrors()){
             return "member/loginForm";
         }
-        Member member = new Member(loginForm.getEmail(), loginForm.getPassword(), loginForm.getMember_name(), MemberStatus.MEMBER);
-        Long memberId = memberService.join(member);
-        //log.info("login_memberId: --" + memberId + "---");
-        rttr.addFlashAttribute("memberId", memberId);
-        return "redirect:/dashboard";
+        // 가입된 회원인지 체크하기
+        boolean check = memberService.validateJoinedMember(loginForm.getEmail(), loginForm.getPassword());
 
-        /**
-         * login하고 dashboad 페이지로 이동해야 함
-         * 이때 dashboard에 현재 회원이 참여하고 있는 회의 목록 뿌려줌
-         */
+        if (!check){ // 가입된 회원이면 dashboard로 이동함
+            Long memberId = memberService.findByEmailAndPassword(loginForm.getEmail(), loginForm.getPassword()).getId();
+            rttr.addFlashAttribute("memberId", memberId);
+            return "redirect:/dashboard";
+        } else{ // 미가입 회원은 메시지
+            return "redirect:/";
+        }
+
+    }
+
+
+    /**
+     *
+     * 회원 가입
+     */
+
+    @GetMapping(value = "/create_account")
+    public String registerForm(Model model){
+        model.addAttribute("registerForm", new RegisterForm());
+        return "member/registForm";
+    }
+
+    @PostMapping(value = "/create_account")
+    public String register(@Valid RegisterForm form, BindingResult result){
+        if (result.hasErrors()){
+            return "member/registForm";
+        }
+        // 가입된 회원인지 체크하기
+        boolean check = memberService.validateJoinedMember(form.getEmail(), form.getPassword());
+        if (check){ // 미가입 회원 -> 새 member 생성하고 홈화면으로 이동
+            Member member = new Member(form.getEmail(), form.getPassword(), form.getMember_name(), MemberStatus.MEMBER);
+            memberService.join(member);
+        } else{  // 이미 가입한 회원 -> 메시지와 함께 홈화면으로 이동
+
+        }
+        return "redirect:/";
     }
 }

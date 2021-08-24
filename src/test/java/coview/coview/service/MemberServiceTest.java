@@ -27,8 +27,6 @@ public class MemberServiceTest {
     @Autowired
     MemberRepository memberRepository;
     @Autowired MemberService memberService;
-    @Autowired
-    MeetingService meetingService;
     @Autowired JoinMeetingService joinMeetingService;
 
     @Test
@@ -102,6 +100,27 @@ public class MemberServiceTest {
 
         Assertions.assertThat(member2.getMeetings().size()).isEqualTo(2);
         Assertions.assertThat(member2.getStatus()).isEqualTo(MemberStatus.HOST);
+
+    }
+
+    @Test
+    @Rollback(value = false)
+    public void 가입유뮤테스트(){
+        Member member1 = new Member("123", "123", "kim", MemberStatus.MEMBER);
+
+        memberService.join(member1);
+
+        //가입한 회원
+        Member findMember = memberService.findByEmailAndPassword(member1.getEmail(), member1.getPassword());
+        Assertions.assertThat(member1).isEqualTo(findMember);
+        Boolean check = memberService.validateJoinedMember(member1.getEmail(), member1.getPassword());
+        Assertions.assertThat(check).isEqualTo(false);
+
+        //미가입 회원
+        Member findMember2 = memberService.findByEmailAndPassword("test1","000");
+        Assertions.assertThat(findMember2).isEqualTo(null);
+        boolean check2 = memberService.validateJoinedMember("test1", "asd");
+        Assertions.assertThat(check2).isEqualTo(true);
 
     }
 

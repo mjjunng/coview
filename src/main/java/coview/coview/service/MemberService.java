@@ -44,12 +44,33 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    public Member findByEmailAndPassword(String email, String pwd){
+        return memberRepository.findByEmailAndPassword(email, pwd);
+    }
+
     /**
      * 멤버 조회 -> 해당 멤버의 미팅 목록 불러오기 위해 join Meeting과 join fetch 함
      */
 //    public List<Member> findById(Long memberId){
 //        return memberRepository.findById(memberId);
 //    }
+
+    /**
+     * 가입된 회원인지 판별
+     * return true : 가입한 회원이 없을 때 -> 이 이메일과 아이디로 회원가입 가능
+     * return false : 가입한 회원이 있을 때 -> 이 이메일과 아이디로 회원가입 불가능
+     */
+    @Transactional
+    public boolean validateJoinedMember(String email, String password){
+        Member member = findByEmailAndPassword(email, password);
+        if (member == null){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 
 
 }
