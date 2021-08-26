@@ -2,10 +2,9 @@ package coview.coview.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,4 +20,14 @@ public class Meeting {
 //    public Meeting(String name) {
 //        this.name = name;
 //    }
+
+    @OneToMany(mappedBy = "meeting")
+    private List<JoinMeeting> joinMeetings = new ArrayList<>();
+
+    /**
+     * ==연관관계 메서드
+     */
+    public void setJoinMeetings(JoinMeeting joinMeeting){
+        getJoinMeetings().add(joinMeeting);
+    }
 }

@@ -79,7 +79,7 @@ public class DashboardController {
         }
         // 회의 생성하기
         //log.info("memberId: " + memberId);
-        log.info("meeting name : " + meetingForm.getName());
+        //log.info("meeting name : " + meetingForm.getName());
         joinMeetingService.createMeeting(memberId, meetingForm.getName());
         // dashboard로 갈 때 memberId 보내기
         rttr.addFlashAttribute("memberId", memberId);

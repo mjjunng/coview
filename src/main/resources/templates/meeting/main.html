@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script src="/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<button id="inviteBtn" class="btn">초대하기</button>
+
+
+
+
+
+<!-- Modal-->
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </button>
+                <h3 class="modal-title" id="exampleModalLabel">멤버 초대하기</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form" th:action="@{/meeting/{id} (id=${joinMeetingId})}" method="post">
+                    <label th:for="email">초대할 멤버의 아이디를 입력하세요</label>
+                    <input type="text" name="inviteEmail" id="inviteEmail" class="form-control"
+                           placeholder="초대할 멤버의 아이디" required="required">
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                              >취소</button>
+                        <button type="submit" class="btn btn-primary">확인</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--modal script-->
+<script>
+		$('#inviteBtn').click(function(e){
+			e.preventDefault();
+			$('#inviteModal').modal("show");
+		});
+	</script>
+</body>

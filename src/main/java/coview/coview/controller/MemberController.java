@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,7 +40,7 @@ public class MemberController {
      */
     @PostMapping(value = "/login")
     public String login(@Valid LoginForm loginForm, BindingResult result,
-                        RedirectAttributes rttr){
+                        RedirectAttributes rttr, HttpServletResponse response) throws IOException {
         if (result.hasErrors()){
             return "member/loginForm";
         }
@@ -45,12 +48,17 @@ public class MemberController {
         boolean check = memberService.validateJoinedMember(loginForm.getEmail(), loginForm.getPassword());
 
         if (!check){ // 가입된 회원이면 dashboard로 이동함
-            Long memberId = memberService.findByEmailAndPassword(loginForm.getEmail(), loginForm.getPassword()).getId();
+            Long memberId = memberService.findByEmailAndPassword(loginForm.getEmail(),
+                    loginForm.getPassword()).getId();
             rttr.addFlashAttribute("memberId", memberId);
-            return "redirect:/dashboard";
+
         } else{ // 미가입 회원은 메시지
-            return "redirect:/";
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('아이디 혹은 비밀번호가 일치하지 않습니다');history.go(-1); </script>");
+            out.flush();
         }
+        return "redirect:/dashboard";
 
     }
 
@@ -67,18 +75,32 @@ public class MemberController {
     }
 
     @PostMapping(value = "/create_account")
-    public String register(@Valid RegisterForm form, BindingResult result){
+    public String register(@Valid RegisterForm form, BindingResult result,
+                           HttpServletResponse response) throws IOException {
         if (result.hasErrors()){
             return "member/registForm";
         }
-        // 가입된 회원인지 체크하기
-        boolean check = memberService.validateJoinedMember(form.getEmail(), form.getPassword());
-        if (check){ // 미가입 회원 -> 새 member 생성하고 홈화면으로 이동
-            Member member = new Member(form.getEmail(), form.getPassword(), form.getMember_name(), MemberStatus.MEMBER);
-            memberService.join(member);
-        } else{  // 이미 가입한 회원 -> 메시지와 함께 홈화면으로 이동
-
+        // 1차 비밀번호와 2차 비밀번호 확인
+        if (!form.getPassword().equals(form.getCheckPassword())){
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('두 비밀번호가 일치하지 않습니다.'); history.go(-1); </script>");
+            out.flush();
         }
+        else{
+            // 가입된 회원인지 체크하기
+            boolean check = memberService.validateJoinedMember(form.getEmail(), form.getPassword());
+            if (check){ // 미가입 회원 -> 새 member 생성하고 홈화면으로 이동
+                Member member = new Member(form.getEmail(), form.getPassword(), form.getMember_name(), MemberStatus.MEMBER);
+                memberService.join(member);
+            } else{  // 이미 가입한 회원 -> 메시지와 함께 홈화면으로 이동
+                response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('이미 존재하는 회원입니다.'); history.go(-1); </script>");
+                out.flush();
+            }
+        }
+
         return "redirect:/";
     }
 }

@@ -23,12 +23,18 @@ public class JoinMeeting {
     @Column(name = "meeting_name")
     private String name;
 
+    private Long hostId;
+
     public JoinMeeting (){}
 
     public JoinMeeting(Member member, Meeting meeting, String name) {
         this.member = member;
         this.meeting = meeting;
         this.name = name;
+    }
+
+    public void setHostId(Long hostId){
+        this.hostId = hostId;
     }
 
 

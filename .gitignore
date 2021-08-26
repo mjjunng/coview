@@ -37,3 +37,4 @@ out/
 .vscode/
 coview\
 application.yml
+static\

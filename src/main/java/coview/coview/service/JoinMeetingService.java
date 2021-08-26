@@ -6,12 +6,14 @@ import coview.coview.domain.Meeting;
 import coview.coview.domain.Member;
 import coview.coview.repository.JoinMeetingRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class JoinMeetingService {
     private final JoinMeetingRepository joinMeetingRepository;
     private final MeetingService meetingService;
@@ -38,7 +40,9 @@ public class JoinMeetingService {
         meetingService.save(meeting);
         Member findMember = memberService.findOne(memberId);
         JoinMeeting joinMeeting = new JoinMeeting(findMember, meeting, name);
+        joinMeeting.setHostId(memberId);
         findMember.setMeetings(joinMeeting);
+        meeting.setJoinMeetings(joinMeeting);
         findMember.changeStatus();
         save(joinMeeting);
         return joinMeeting.getId();
