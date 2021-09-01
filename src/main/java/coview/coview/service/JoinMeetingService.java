@@ -1,7 +1,6 @@
 package coview.coview.service;
 
 import coview.coview.domain.JoinMeeting;
-import coview.coview.domain.JoinMeetingId;
 import coview.coview.domain.Meeting;
 import coview.coview.domain.Member;
 import coview.coview.repository.JoinMeetingRepository;
@@ -9,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +54,22 @@ public class JoinMeetingService {
      */
     public JoinMeeting findOne(Long id){
         return joinMeetingRepository.findOne(id);
+    }
+
+
+    /**
+     * 멤버 초대
+     */
+    @Transactional
+    public Long inviteMember(String memberEmail, Long joinMeetingId){
+        JoinMeeting findJoinMeeting = findOne(joinMeetingId);
+//        Long meetingId = findJoinMeeting.getMeeting().getId();
+        //Meeting findMeeting = meetingService.findOne(meetingId);
+        List<Member> invitedMember = memberService.findByEmail(memberEmail);
+        invitedMember.get(0).setMeetings(findJoinMeeting);
+        //findJoinMeeting.setMembersIds(invitedMember.get(0).getId());
+        //findMeeting.setJoinMeetings(findJoinMeeting);
+        return joinMeetingId;
     }
 
 }

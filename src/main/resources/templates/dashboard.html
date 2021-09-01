@@ -2,46 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body id="page-top">
-<!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ms-1"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/create_account">Sign up</a></li>
-                    <!--                        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>-->
-                    <!--                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>-->
-                </ul>
-            </div>
-        </div>
-    </nav>
+<!-- nav-->
+<div th:replace="fragments/nav :: nav"></div>
 
-    <div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>회의명</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="meeting : ${meetings}">
-                <td>
-                <a th:href="@{/meeting/{id} (id=${meeting.id})}">
-                    <span th:text="${meeting.name}"></span>
-                </a>
-                </td>
-            </tr>
-            </tbody>
-            <a th:href="@{/dashboard/new/{id} (id=${memberId})}">회의 생성</a>
-        </table>
+
+<!-- Portfolio Grid-->
+<section class="page-section bg-light" id="portfolio">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <!--                <th>회의명</th>-->
+            <!--                <th></th>-->
+        </tr>
+        </thead>
+    <div class="container">
+        <div class="text-center">
+            <div class="section-heading text-uppercase">DASHBOARD</div>
+        </div>
+        <div>
+            <a class="btn btn-primary btn-xl" th:href="@{/dashboard/new/{id} (id=${memberId})}">
+                회의 생성</a>
+        </div>
+        <div class="row">
+<!--            가로 배열하려면 -> mb-lg-0-->
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 1-->
+                <tbody>
+                <tr th:each="meeting : ${meetings}">
+                    <td>
+                        <div class="portfolio-item">
+                            <div class="portfolio-caption-heading"></div>
+                            </a>
+                            <div class="portfolio-caption" th:href="@{/meeting/{id} (id=${meeting.id})}">
+                                <div class="portfolio-caption-heading" th:text="${meeting.name}">
+                                    Threads</div>
+                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4">
+
+        </div>
     </div>
+    </div>
+    </table>
+</section>
 
     <!-- footer -->
     <div th:replace="fragments/footer :: footer"/>

@@ -1,7 +1,6 @@
 package coview.coview.repository;
 
 import coview.coview.domain.JoinMeeting;
-import coview.coview.domain.JoinMeetingId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

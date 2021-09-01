@@ -3,6 +3,8 @@ package coview.coview.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,6 +38,7 @@ public class JoinMeeting {
     public void setHostId(Long hostId){
         this.hostId = hostId;
     }
+
 
 
 }

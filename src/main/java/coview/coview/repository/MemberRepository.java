@@ -48,10 +48,16 @@ public class MemberRepository {
     }
 
     public List<Member> findById(Long memberId){
-        return em.createQuery("select distict m from Member m join fetch m.meetings" +
+        return em.createQuery("select district m from Member m join fetch m.meetings" +
                         "where m.id=:id", Member.class).setParameter("id", memberId)
                 .getResultList();
 
+    }
+
+    public List<Member> findTotalMember(Long joinMeetingId){
+        return em.createQuery("select m from Member join m.meetings t" +
+                "where t.id=:id", Member.class).setParameter("id", joinMeetingId)
+                .getResultList();
     }
 
 }

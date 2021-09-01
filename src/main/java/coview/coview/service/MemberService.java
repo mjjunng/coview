@@ -48,12 +48,11 @@ public class MemberService {
         return memberRepository.findByEmailAndPassword(email, pwd);
     }
 
-    /**
-     * 멤버 조회 -> 해당 멤버의 미팅 목록 불러오기 위해 join Meeting과 join fetch 함
-     */
-//    public List<Member> findById(Long memberId){
-//        return memberRepository.findById(memberId);
-//    }
+    public List<Member> findByEmail(String email){
+        return memberRepository.findByEmail(email);
+    }
+
+
 
     /**
      * 가입된 회원인지 판별
@@ -69,6 +68,14 @@ public class MemberService {
             return false;
         }
 
+    }
+
+
+    /**
+     * 멤버 조회 -
+     */
+    public List<Member> findTotalMember(Long joinMeetingId){
+        return memberRepository.findTotalMember(joinMeetingId);
     }
 
 
