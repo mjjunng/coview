@@ -15,4 +15,14 @@ public class RegisterForm {
     private String checkPassword;
     @NotEmpty(message = "회원 이름은 필수 입니다")
     private String member_name;
+
+
+    public RegisterForm() {
+    }
+
+    public RegisterForm(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.member_name = name;
+    }
 }

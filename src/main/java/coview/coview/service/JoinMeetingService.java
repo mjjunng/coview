@@ -34,20 +34,20 @@ public class JoinMeetingService {
     /**
      * meeting 생성
      */
-    @Transactional
-    public Long createMeeting(Long memberId, String name){
-
-        Meeting meeting = new Meeting();
-        meetingService.save(meeting);
-        Member findMember = memberService.findOne(memberId);
-        JoinMeeting joinMeeting = new JoinMeeting(findMember, meeting, name);
-        joinMeeting.setHostId(memberId);
-        findMember.setMeetings(joinMeeting);
-        meeting.setJoinMeetings(joinMeeting);
-        findMember.changeStatus();
-        save(joinMeeting);
-        return joinMeeting.getId();
-    }
+//    @Transactional
+//    public Long createMeeting(Long memberId, String name){
+//
+//        Meeting meeting = new Meeting();
+//        meetingService.save(meeting);
+//        Member findMember = memberService.findOne(memberId);
+//        JoinMeeting joinMeeting = new JoinMeeting(findMember, meeting, name);
+//        joinMeeting.setHostId(memberId);
+//        findMember.setMeetings(joinMeeting);
+//        meeting.setJoinMeetings(joinMeeting);
+//        findMember.changeStatus();
+//        save(joinMeeting);
+//        return joinMeeting.getId();
+//    }
 
     /**
      * 조회
@@ -60,16 +60,16 @@ public class JoinMeetingService {
     /**
      * 멤버 초대
      */
-    @Transactional
-    public Long inviteMember(String memberEmail, Long joinMeetingId){
-        JoinMeeting findJoinMeeting = findOne(joinMeetingId);
-//        Long meetingId = findJoinMeeting.getMeeting().getId();
-        //Meeting findMeeting = meetingService.findOne(meetingId);
-        List<Member> invitedMember = memberService.findByEmail(memberEmail);
-        invitedMember.get(0).setMeetings(findJoinMeeting);
-        //findJoinMeeting.setMembersIds(invitedMember.get(0).getId());
-        //findMeeting.setJoinMeetings(findJoinMeeting);
-        return joinMeetingId;
-    }
+//    @Transactional
+//    public Long inviteMember(String memberEmail, Long joinMeetingId){
+//        JoinMeeting findJoinMeeting = findOne(joinMeetingId);
+////        Long meetingId = findJoinMeeting.getMeeting().getId();
+//        //Meeting findMeeting = meetingService.findOne(meetingId);
+//        List<Member> invitedMember = memberService.findByEmail(memberEmail);
+//        invitedMember.get(0).setMeetings(findJoinMeeting);
+//        //findJoinMeeting.setMembersIds(invitedMember.get(0).getId());
+//        //findMeeting.setJoinMeetings(findJoinMeeting);
+//        return joinMeetingId;
+//    }
 
 }

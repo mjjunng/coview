@@ -1,63 +1,71 @@
 package coview.coview.repository;
 
-import coview.coview.domain.JoinMeeting;
-import coview.coview.domain.Meeting;
 import coview.coview.domain.Member;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.EntityManager;
-import java.util.List;
+import java.util.Optional;
 
-@Repository
-@RequiredArgsConstructor
-public class MemberRepository {
+//@Repository
+//@RequiredArgsConstructor
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    private final EntityManager em;
+    Optional<Member> findByEmail(String email);
 
-    public void save(Member member){
-        em.persist(member);
-    }
 
-    public Member findOne(Long memberId){
-        return em.find(Member.class, memberId);
-    }
 
-    public List<Member> findAll(){
-        return em.createQuery("select m from Member m", Member.class)
-                .getResultList();
-    }
+//    private final EntityManager em;
 
-    public List<Member> findByEmail(String email){
-        return em.createQuery("select m from Member m " +
-                        "where m.email=:email", Member.class)
-                .setParameter("email", email)
-                .getResultList();
-    }
+//    public void save(Member member){
+//        em.persist(member);
+//    }
+//
+//    public Member findOne(Long memberId){
+//        return em.find(Member.class, memberId);
+//    }
+//
+//    public List<Member> findAll(){
+//        return em.createQuery("select m from Member m", Member.class)
+//                .getResultList();
+//    }
+//
+//
+//    public Member findByEmail(String email){
+//        return em.createQuery("select m from Member m " +
+//                        "where m.email=:email", Member.class)
+//                .setParameter("email", email)
+//                .getSingleResult();
+//    }
+//
+//    public Member findByEmailAndPassword(String email, String pwd){
+//        try {
+//            return em.createQuery("select m from Member m " +
+//                            "where m.email=:email and m.password=:pwd", Member.class)
+//                    .setParameter("email", email)
+//                    .setParameter("pwd", pwd)
+//                    .getSingleResult();
+//        } catch (Exception e){
+//            return null;
+//        }
+//    }
+//
+////    public Member findById(Long memberId){
+////        return em.createQuery("select district m from Member m join fetch m.meetings" +
+////                        "where m.id=:id", Member.class).setParameter("id", memberId)
+////                .getSingleResult();
+////
+////    }
+//
+//    public List<Member> findTotalMember(Long joinMeetingId){
+//        return em.createQuery("select m from Member join m.meetings t" +
+//                "where t.id=:id", Member.class).setParameter("id", joinMeetingId)
+//                .getResultList();
+//    }
 
-    public Member findByEmailAndPassword(String email, String pwd){
-        try {
-            return em.createQuery("select m from Member m " +
-                            "where m.email=:email and m.password=:pwd", Member.class)
-                    .setParameter("email", email)
-                    .setParameter("pwd", pwd)
-                    .getSingleResult();
-        } catch (Exception e){
-            return null;
-        }
-    }
+//    public Auth findMemberAuth(Long memberId){
+//        return (Auth) em.createQuery("select m.auth from Member m " +
+//                "where id=:id").setParameter("id", memberId)
+//                .getSingleResult();
+//    }
 
-    public List<Member> findById(Long memberId){
-        return em.createQuery("select district m from Member m join fetch m.meetings" +
-                        "where m.id=:id", Member.class).setParameter("id", memberId)
-                .getResultList();
-
-    }
-
-    public List<Member> findTotalMember(Long joinMeetingId){
-        return em.createQuery("select m from Member join m.meetings t" +
-                "where t.id=:id", Member.class).setParameter("id", joinMeetingId)
-                .getResultList();
-    }
 
 }

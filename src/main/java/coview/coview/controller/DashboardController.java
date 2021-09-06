@@ -1,9 +1,6 @@
 package coview.coview.controller;
 
-import coview.coview.domain.JoinMeeting;
-import coview.coview.domain.Meeting;
-import coview.coview.domain.Member;
-import coview.coview.domain.MemberStatus;
+import coview.coview.domain.*;
 import coview.coview.service.JoinMeetingService;
 import coview.coview.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -39,17 +36,17 @@ public class DashboardController {
         // 현재 회원의 id값을 통해서 회원이 참여하고 있는 meeting List 뿌려줌
         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
         Long memberId = null;
+//        Auth memberAuth = null;
+
         if (flashMap != null){
             memberId = (Long) flashMap.get("memberId");
+//            memberAuth = (Auth) flashMap.get("memberAuth");
         }
-//        log.info("dashboard_memberId: " + memberId + "---");
-        Member findMember = memberService.findOne(memberId);
-        model.addAttribute("memberId", findMember.getId());
-        model.addAttribute("meetings", findMember.getMeetings());
-//        log.info("findMemberId: " + findMember.getId());
-//        if (findMember.getMeetings().size() > 0){
-//            log.info("meetings: " + findMember.getMeetings().get(0).getName());
-//        }
+//        Member findMember = memberService.findOne(memberId);
+//        model.addAttribute("memberId", findMember.getId());
+//        model.addAttribute("meetings", findMember.getMeetings());
+//        model.addAttribute("memberAuth", findMember.getMeetings());
+
         return "dashboard";
     }
 
@@ -80,7 +77,7 @@ public class DashboardController {
         // 회의 생성하기
         //log.info("memberId: " + memberId);
         //log.info("meeting name : " + meetingForm.getName());
-        joinMeetingService.createMeeting(memberId, meetingForm.getName());
+        //joinMeetingService.createMeeting(memberId, meetingForm.getName());
         // dashboard로 갈 때 memberId 보내기
         rttr.addFlashAttribute("memberId", memberId);
         return "redirect:/dashboard";

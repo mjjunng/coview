@@ -43,20 +43,20 @@ public class MeetingController {
 //        log.info("joinMeetingId " + joinMeetingId);
 
         // 가입된 회원인지 체크하기
-        if (memberService.findByEmail(inviteEmail).size() > 0){
-            Long meetingId = joinMeetingService.inviteMember(inviteEmail, joinMeetingId);
-            Meeting meeting = meetingService.findOne(meetingId);
-            log.info("size: " + meeting.getJoinMeetings().size());
-            for(int i =0; i< meeting.getJoinMeetings().size(); i++){
-                // 초대한 멤버의 이름 안나옴
-                log.info("join member name : " + meeting.getJoinMeetings().get(i).getMember().getName());
-            }
-        } else{
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('존재하지 않는 회원입니다.'); history.go(-1); </script>");
-            out.flush();
-        }
+//        if (memberService.findByEmail(inviteEmail)){
+//            Long meetingId = joinMeetingService.inviteMember(inviteEmail, joinMeetingId);
+//            Meeting meeting = meetingService.findOne(meetingId);
+//            log.info("size: " + meeting.getJoinMeetings().size());
+//            for(int i =0; i< meeting.getJoinMeetings().size(); i++){
+//                // 초대한 멤버의 이름 안나옴
+//                log.info("join member name : " + meeting.getJoinMeetings().get(i).getMember().getName());
+//            }
+//        } else{
+//            response.setContentType("text/html; charset=UTF-8");
+//            PrintWriter out = response.getWriter();
+//            out.println("<script>alert('존재하지 않는 회원입니다.'); history.go(-1); </script>");
+//            out.flush();
+//        }
 
         return "meeting/main";
     }
