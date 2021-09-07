@@ -10,23 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 public class HomeController {
 
     @RequestMapping("/")
-    public String home(HttpServletRequest request, Model model){
-//        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
-//        Auth memberAuth = null;
-//
-//        if (flashMap != null){
-//            memberAuth = (Auth) flashMap.get("memberAuth");
-//        }
-//
-//        if (memberAuth != null){
-//            model.addAttribute("href_dashboard", "Dashboard");
-//            model.addAttribute("href_logout", "Logout");
-//        }
-//        else{
-//            model.addAttribute("href_dashboard", null);
-//            model.addAttribute("href_logout", null);
-//        }
-
+    public String index(){
         return "index";
+    }
+
+    @RequestMapping("/coview")
+    public String home(){
+        return "main";
     }
 }

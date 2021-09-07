@@ -12,9 +12,6 @@
 <button id="inviteBtn" class="btn">초대하기</button>
 
 
-
-
-
 <!-- Modal-->
 <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -26,7 +23,7 @@
                 <h3 class="modal-title" id="exampleModalLabel">멤버 초대하기</h3>
             </div>
             <div class="modal-body">
-                <form role="form" th:action="@{/meeting/{id} (id=${joinMeetingId})}" method="post">
+                <form role="form" th:action="@{/meeting/{id} (id=${meetingId})}" method="post">
                     <label th:for="email">초대할 멤버의 아이디를 입력하세요</label>
                     <input type="text" name="inviteEmail" id="inviteEmail" class="form-control"
                            placeholder="초대할 멤버의 아이디" required="required">
@@ -37,7 +34,7 @@
                         <button type="submit" class="btn btn-primary">확인</button>
                     </div>
 
-                    <input type="hidden" th:name= "joinMeetingId" th:value="${joinMeetingId}"></input>
+                    <input type="hidden" th:name= "meetingId" th:value="${meetingId}"></input>
                 </form>
             </div>
 

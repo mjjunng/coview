@@ -3,6 +3,7 @@ package coview.coview.service;
 import coview.coview.controller.RegisterForm;
 import coview.coview.domain.*;
 import coview.coview.repository.MemberRepository;
+import coview.coview.repository.MemberRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final MemberRepositoryImpl memberRepositoryImpl;
     private final MeetingService meetingService;
 
     /**
@@ -44,9 +46,9 @@ public class MemberService implements UserDetailsService {
     /**
      * 회원 조회
      */
-//    public Member findOne(Long memberId){
-//        return memberRepository.findOne(memberId);
-//    }
+    public Member findOne(Long memberId){
+        return memberRepositoryImpl.findOne(memberId);
+    }
 //
 //    public Member findByEmailAndPassword(String email, String pwd){
 //        return memberRepository.findByEmailAndPassword(email, pwd);
@@ -115,7 +117,7 @@ public class MemberService implements UserDetailsService {
         infoDto.setPassword(encoder.encode(infoDto.getPassword()));
 
         Member member = new Member(infoDto.getEmail(), infoDto.getPassword(),
-                infoDto.getName(), MemberStatus.MEMBER, "USER");
+                infoDto.getName(), MemberStatus.MEMBER, "ROLE_USER");
         return memberRepository.save(member).getId();
     }
 }

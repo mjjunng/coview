@@ -14,20 +14,23 @@ public class Meeting {
     @Column(name = "meeting_id")
     private Long id;
 
-//    @Column(name = "meeting_name")
-//    private String name;
-//
-//    public Meeting(String name) {
-//        this.name = name;
-//    }
+    @Column(name = "meeting_name")
+    private String name;
+
+    private Long hostId;
 
     @OneToMany(mappedBy = "meeting")
     private List<JoinMeeting> joinMeetings = new ArrayList<>();
 
-    /**
-     * ==연관관계 메서드
-     */
-    public void setJoinMeetings(JoinMeeting joinMeeting){
-        getJoinMeetings().add(joinMeeting);
+    public Meeting() {
     }
+
+    public Meeting(String name) {
+        this.name = name;
+    }
+
+    public void setHostId(Long hostId){
+        this.hostId = hostId;
+    }
+
 }

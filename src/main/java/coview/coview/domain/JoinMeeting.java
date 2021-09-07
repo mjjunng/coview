@@ -25,8 +25,6 @@ public class JoinMeeting {
     @Column(name = "meeting_name")
     private String name;
 
-    private Long hostId;
-
     public JoinMeeting (){}
 
     public JoinMeeting(Member member, Meeting meeting, String name) {
@@ -35,8 +33,15 @@ public class JoinMeeting {
         this.name = name;
     }
 
-    public void setHostId(Long hostId){
-        this.hostId = hostId;
+    //--연관관계 편의 메서드--//
+    public void setMember(Member member){
+        this.member = member;
+        member.getMeetings().add(this);
+    }
+
+    public void setMeeting(Meeting meeting){
+        this.meeting = meeting;
+        meeting.getJoinMeetings().add(this);
     }
 
 

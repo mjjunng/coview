@@ -65,14 +65,6 @@ public class Member implements UserDetails {
 
 
     /**
-     * ==연관관계 메서드
-     */
-    public void setMeetings(JoinMeeting joinMeeting){
-        getMeetings().add(joinMeeting);
-
-    }
-
-    /**
      *
      * spring security
      */

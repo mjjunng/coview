@@ -4,10 +4,15 @@ import coview.coview.domain.MemberInfoDto;
 import coview.coview.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,8 +36,7 @@ public class MemberController {
      */
     @PostMapping("/login")
     public String afterLogin(){
-        //log.info();
-        return "redirect:/";
+        return "coview";
     }
 
 //    @PostMapping(value = "/login")
@@ -63,16 +67,6 @@ public class MemberController {
 //            out.flush();
 //        }
 //        return "redirect:/dashboard";
-//    }
-
-    /**
-     * login하고 / 페이지로 현재 회원의 auth 상태정보 넘김
-     */
-
-    //@PostMapping(value = "/login")
-//    public String authInfo(RedirectAttributes rttr, Auth auth) {
-//        rttr.addFlashAttribute("memberAuth", auth);
-//        return "forward:/";
 //    }
 
 
@@ -128,4 +122,14 @@ public class MemberController {
 //
 //        return "redirect:/";
 //    }
+
+    /**
+     * 로그아웃
+     */
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        new SecurityContextLogoutHandler().logout(request, response,
+                SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/";
+    }
 }
