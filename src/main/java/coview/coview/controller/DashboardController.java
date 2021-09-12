@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,6 +42,8 @@ public class DashboardController {
         // 현재 회원의 id값을 통해서 회원이 참여하고 있는 meeting List 뿌려줌
         Member member = findNowMember(authentication);
         model.addAttribute("joinMeetings", member.getMeetings());
+
+
         return "dashboard";
     }
 

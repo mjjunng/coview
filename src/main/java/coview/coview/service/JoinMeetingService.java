@@ -21,7 +21,6 @@ public class JoinMeetingService {
     private final JoinMeetingRepository joinMeetingRepository;
 
     /**
-     *
      * JoinMeeting 저장
      */
     @Transactional
@@ -36,5 +35,12 @@ public class JoinMeetingService {
     public JoinMeeting findOne(Long id){
         return joinMeetingRepository.findOne(id);
     }
+
+    public List<JoinMeeting> findAll(){ return joinMeetingRepository.findAll(); }
+
+    public List<JoinMeeting> findByIds(Long meetingId, Long memberId){
+        return joinMeetingRepository.findByIds(meetingId, memberId);
+    }
+
 
 }

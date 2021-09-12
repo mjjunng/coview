@@ -19,18 +19,28 @@ public class Meeting {
 
     private Long hostId;
 
+    private int cnt;
+
     @OneToMany(mappedBy = "meeting")
     private List<JoinMeeting> joinMeetings = new ArrayList<>();
 
     public Meeting() {
     }
 
-    public Meeting(String name) {
+    public Meeting(String name, int count) {
         this.name = name;
+        this.cnt = count;
     }
 
     public void setHostId(Long hostId){
         this.hostId = hostId;
+    }
+
+    /**
+     * 회의 참여 인원 수 증가
+     */
+    public void increaseCount(int cnt){
+        this.cnt += cnt;
     }
 
 }

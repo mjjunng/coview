@@ -38,4 +38,4 @@ out/
 coview\
 application.yml
 static\
-WebSecurityConfig
+WebSecurityConfig.class

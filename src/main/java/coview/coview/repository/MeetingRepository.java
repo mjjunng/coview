@@ -1,5 +1,6 @@
 package coview.coview.repository;
 
+import coview.coview.domain.JoinMeeting;
 import coview.coview.domain.Meeting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -24,4 +25,15 @@ public class MeetingRepository {
         return em.createQuery("select m from Meeting m", Meeting.class)
                 .getResultList();
     }
+
+    // 회의 참여하는 멤버 조회하기 위해 현재 meetingId와 연관된 joinMeetings 조회
+//    public Meeting findFetchMeeting(Long meetingId){
+//        return em.createQuery("select m from Meeting m join fetch m.joinMeetings j" +
+//                                "where m.id=:id", Meeting.class)
+//                .setParameter("id", meetingId)
+//                .getSingleResult();
+//    }
+
+
+
 }

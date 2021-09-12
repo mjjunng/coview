@@ -47,7 +47,7 @@ public class MeetingService {
      */
     @Transactional
     public Long createMeeting(Member member, String name){
-        Meeting meeting = new Meeting(name);
+        Meeting meeting = new Meeting(name, 1);
         meeting.setHostId(member.getId());
         save(meeting);
         JoinMeeting joinMeeting = new JoinMeeting(member, meeting, name);
@@ -60,14 +60,20 @@ public class MeetingService {
 
     /**
      * 멤버 초대
+     * @return : 멤버가 참여하고 있는 Meeting Id 리턴
      */
     @Transactional
     public Long inviteMember(Member member, Long meetingId){
         Meeting findMeeting = findOne(meetingId);
+        findMeeting.increaseCount(1);
         JoinMeeting joinMeeting = new JoinMeeting(member, findMeeting, findMeeting.getName());
         joinMeeting.setMember(member);
         joinMeeting.setMeeting(findMeeting);
         joinMeetingService.save(joinMeeting);
         return findMeeting.getId();
     }
+
+//    public Meeting findFetchMeeting(Long meetingId){
+//        return meetingRepository.findFetchMeeting(meetingId);
+//    }
 }

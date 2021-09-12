@@ -8,8 +8,32 @@
 
 </head>
 
+<style>
+.box1{
+ float:left;
+}
+
+.box2{
+display:inline-block;
+}
+</style>
+
 <body>
-<button id="inviteBtn" class="btn">초대하기</button>
+<div class="box1">
+    <button id="inviteBtn" class="btn btn-primary btn-xl">초대하기</button>
+</div>
+
+<div class="box2">
+    <tbody>
+    <tr th:each="member : ${members}">
+        <td>
+        <span class="portfolio-caption-heading" th:text="${member.email}">
+            memberEmail
+        </span>
+        </td>
+    </tr>
+    </tbody>
+</div>
 
 
 <!-- Modal-->
