@@ -25,6 +25,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation group: 'org.springframework.security', name: 'org.springframework.boot', version: '2.4.0' // webRtc
+	implementation 'org.springframework.boot:spring-boot-starter-websocket' // webRtc
 	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.3.11.RELEASE'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
