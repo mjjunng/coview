@@ -39,3 +39,5 @@ coview\
 application.yml
 static\
 WebSecurityConfig.class
+mykeystore.pkcs12
+mytrust.pkcs12

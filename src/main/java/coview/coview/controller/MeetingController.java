@@ -80,12 +80,5 @@ public class MeetingController {
 
     }
 
-    @GetMapping(value = "/socket")
-    public String rtc(Model model){
-        return "rtc";
-    }
-
-
-
 
 }
