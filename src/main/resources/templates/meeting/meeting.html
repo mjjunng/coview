@@ -4,79 +4,98 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/bootstrap.css" />
+<!--    <link href="css/styles.css" rel="stylesheet" />-->
     <script src="/js/bootstrap.min.js"></script>
 </head>
 
+<!--<style>-->
+<!--.box1{-->
+<!-- float:left;-->
+<!--}-->
+
+<!--.box2{-->
+<!--display:inline-block;-->
+<!--}-->
+<!--</style>-->
 <style>
-.box1{
- float:left;
-}
-
-.box2{
-display:inline-block;
-}
+    body {
+  margin: 0;}
 </style>
-
 <body>
-    <div class="box1">
-        <button id="inviteBtn" class="btn btn-primary btn-xl">초대하기</button>
-    </div>
+    <!--초대하기 버튼, video-->
+    <section style="height:30vh; margin: 30px 40px 30px;">
 
-    <div class="box2">
-        <tbody>
-        <tr th:each="member : ${members}">
-            <td>
-            <span class="portfolio-caption-heading" th:text="${member.email}">
-                memberEmail
-            </span>
-            </td>
-        </tr>
-        </tbody>
-    </div>
-
-    <!-- sharing video  -->
-    <section class="page-section">
-        <!-- Your camera video will show up here. -->
-        <div style=" display:inline-block;" class="container">
-            <!--            <h3 style="margin: 5px">You</h3>-->
-            <video style="width: auto; height: 20vh;" id="localVideo"
-                   poster="/assets/img/user.png" autoplay muted></video>
+        <div style="display:inline-block; position: relative; top: 60px;">
+            <button id="inviteBtn" class="btn btn-primary">초대하기</button>
         </div>
 
-        <!-- Other person's camera video will show up here -->
-        <div style="float:left;" class="container">
-<!--            <h3 style="margin: 5px">Other Person</h3>-->
-            <video style="width: auto; height: 20vh;" id="remoteVideo"
-                   poster="/assets/img/user.png" autoplay></video>
+        <!-- sharing video  -->
+        <div style="float:right;">
+            <!-- Your camera video will show up here. -->
+            <div style="float:left;">
+                <!--            <h3 style="margin: 5px">You</h3>-->
+                <video style="width: auto; height: 120px;" id="localVideo"
+                       poster="/assets/img/user.png" autoplay muted></video>
+            </div>
+
+            <!-- Other person's camera video will show up here -->
+            <div style="display:inline-block; margin-left:10px;">
+                <!--            <h3 style="margin: 5px">Other Person</h3>-->
+                <video style="width: auto; height: 120px;" id="remoteVideo"
+                       poster="/assets/img/user.png" autoplay></video>
+            </div>
+
+            <button id="muteBtn"><img src="/assets/img/mute.png"></button>
+
+            <!-- Button to leave video conference. -->
+            <div class="box">
+                <button id="leaveButton" class="btn btn-primary">Leave Video Conference</button>
+            </div>
         </div>
 
-        <!-- Button to leave video conference. -->
-        <div class="box">
-            <button id="leaveButton" class="btn btn-primary btn-xl">Leave Video Conference</button>
-        </div>
+            <!--현재 회의 참여 멤버들-->
+            <!--            <div class="box2">-->
+            <!--                <tbody>-->
+            <!--                <tr th:each="member : ${members}">-->
+            <!--                    <td>-->
+            <!--            <span class="portfolio-caption-heading" th:text="${member.email}">-->
+            <!--                memberEmail-->
+            <!--            </span>-->
+            <!--                    </td>-->
+            <!--                </tr>-->
+            <!--                </tbody>-->
+            <!--            </div>-->
+
     </section>
 
     <!-- sharing screen   -->
-    <section class="page-section">
-        <!-- Your screen will show up here. -->
-        <div style=" display:inline-block;" class="container">
-            <!--            <h3 style="margin: 5px">Your Screen</h3>-->
-            <video  style="width: 100%; height: 100%;" id="localVideo2"
-                    poster="/assets/img/sharing.png" autoplay muted></video>
-        </div>
+    <section class="screen" style="margin-top:40px; height:60vh;">
+        <canvas id="canvas">
+            <button id="drawingBtn"><img src="/assets/img/drawing.png"></button>
+            <!-- Your screen will show up here. -->
+            <div style="float:left; width: 50%;">
+                <!--            <h3 style="margin: 5px">Your Screen</h3>-->
+                <video  style="width: 100%; height: 100%;" id="localVideo2"
+                        poster="/assets/img/sharing.png" autoplay muted></video>
+            </div>
 
-        <!-- Other person's screen will show up here -->
-        <div style="float:left;" class="container">
-<!--            <h3 style="margin: 5px">Other Person's Screen</h3>-->
-            <video style="width: 100%; height: 100%;" id="remoteVideo2"
-                   poster="/assets/img/sharing.png" autoplay></video>
-        </div>
+            <!-- Other person's screen will show up here -->
+            <div style="display:inline-block; width: 50%;">
+                <!--            <h3 style="margin: 5px">Other Person's Screen</h3>-->
+                <video style="width: 100%; height: 100%; object-fit: inherit;" id="remoteVideo2"
+                       poster="/assets/img/sharing.png" autoplay></video>
+            </div>
 
 
-        <!-- Button to leave Screen Sharing. -->
-        <div class="box">
-            <button id="leaveButton2" class="btn btn-primary btn-xl">Leave Screen Sharing</button>
-        </div>
+            <!-- Button to leave Screen Sharing. -->
+            <div class="box">
+                <button id="leaveButton2" class="btn btn-primary">Leave Screen Sharing</button>
+            </div>
+
+            <div>
+                <button id="leaveMeetingButton" class="btn btn-primary">회의 나가기</button>
+            </div>
+        </canvas>
     </section>
 
 

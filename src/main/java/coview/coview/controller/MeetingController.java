@@ -80,5 +80,10 @@ public class MeetingController {
 
     }
 
+    @GetMapping(value = "/test")
+    public String testPage(Model model){
+        return "meeting/meeting";
+    }
+
 
 }

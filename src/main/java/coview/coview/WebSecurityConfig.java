@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/css/**", "/js/**", "/assets/**", "/h2-console/**",
-                "/signal", "/signal2");
+                "/signal", "/signal2", "/test");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/create_account", "/h2-console/**", "/signal"
-                        , "/signal2").permitAll() // 누구나 접근 허용
+                        , "/signal2", "/test").permitAll() // 누구나 접근 허용
                 .antMatchers("/dashboard", "/coview").authenticated() // 로그인해야 접근가능
                 .anyRequest().authenticated()
                 .and()
