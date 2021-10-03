@@ -36,7 +36,7 @@ public class MemberController {
      */
     @PostMapping("/login")
     public String afterLogin(){
-        return "coview";
+        return "index";
     }
 
 //    @PostMapping(value = "/login")

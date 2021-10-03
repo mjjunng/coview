@@ -4,7 +4,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/bootstrap.css" />
-<!--    <link href="css/styles.css" rel="stylesheet" />-->
     <script src="/js/bootstrap.min.js"></script>
 </head>
 
@@ -18,19 +17,66 @@
 <!--}-->
 <!--</style>-->
 <style>
-    body {
-  margin: 0;}
+body {
+margin: 0;}
+
+video[poster]{
+height: 50%;
+width: 50%;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #ffc800;
+  border-color: #ffc800;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #d9aa00;
+  border-color: #cca000;
+}
+
+h2{
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+<!--.localVideoInChatting {-->
+<!--  width: 100%;-->
+<!--  height: 100%;-->
+<!--}-->
+<!--.remoteVideoInChatting {-->
+<!--  width: 100%;-->
+<!--  height: 100%;-->
+<!--}-->
+
 </style>
 <body>
-    <!--초대하기 버튼, video-->
-    <section style="height:30vh; margin: 30px 40px 30px;">
-
-        <div style="display:inline-block; position: relative; top: 60px;">
-            <button id="inviteBtn" class="btn btn-primary">초대하기</button>
+    <!--회의명, 초대하기 버튼, video-->
+    <section style="height:30vh; margin: 30px 50px 30px;">
+        <h2 th:text="${meetingName}" class="my-3">회의명</h2>
+        <!--현재 회의 참여 멤버들-->
+        <span >
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td>
+                        <span class="portfolio-caption-heading" style="margin-left:5px;" th:text="${member.email}">
+                            memberEmail
+                        </span>
+                </td>
+            </tr>
+            </tbody>
+        </span>
+        <div style="float:left; position: relative; top: 40px; margin-left:5px;">
+            <button id="inviteBtn" class="btn btn-primary">멤버 초대하기</button>
+            <button id="leaveMeetingButton" class="btn btn-primary" style="margin-left:18px;">회의 나가기</button>
         </div>
 
         <!-- sharing video  -->
-        <div style="float:right;">
+        <div style="display:inline-block; float:right;">
             <!-- Your camera video will show up here. -->
             <div style="float:left;">
                 <!--            <h3 style="margin: 5px">You</h3>-->
@@ -39,63 +85,50 @@
             </div>
 
             <!-- Other person's camera video will show up here -->
-            <div style="display:inline-block; margin-left:10px;">
+            <div style="display:inline-block; margin-left:20px;">
                 <!--            <h3 style="margin: 5px">Other Person</h3>-->
                 <video style="width: auto; height: 120px;" id="remoteVideo"
                        poster="/assets/img/user.png" autoplay></video>
             </div>
 
-            <button id="muteBtn"><img src="/assets/img/mute.png"></button>
+            <div style="margin-top:10px;">
+                <button type="button"><img id="muteBtn" src="/assets/img/mute.png"></button>
+            </div>
 
             <!-- Button to leave video conference. -->
-            <div class="box">
-                <button id="leaveButton" class="btn btn-primary">Leave Video Conference</button>
-            </div>
+<!--            <div class="box">-->
+<!--                <button id="leaveButton" class="btn btn-primary">Leave Video Conference</button>-->
+<!--            </div>-->
         </div>
-
-            <!--현재 회의 참여 멤버들-->
-            <!--            <div class="box2">-->
-            <!--                <tbody>-->
-            <!--                <tr th:each="member : ${members}">-->
-            <!--                    <td>-->
-            <!--            <span class="portfolio-caption-heading" th:text="${member.email}">-->
-            <!--                memberEmail-->
-            <!--            </span>-->
-            <!--                    </td>-->
-            <!--                </tr>-->
-            <!--                </tbody>-->
-            <!--            </div>-->
 
     </section>
 
     <!-- sharing screen   -->
     <section class="screen" style="margin-top:40px; height:60vh;">
-        <canvas id="canvas">
-            <button id="drawingBtn"><img src="/assets/img/drawing.png"></button>
+<!--        <canvas id="canvas">-->
+<!--            <button id="drawingBtn"><img src="/assets/img/drawing.png"></button>-->
             <!-- Your screen will show up here. -->
-            <div style="float:left; width: 50%;">
+
+            <div style="margin-left:50px; margin-bottom:20px;"><img id="shareBtn" src="/assets/img/share.png"></div>
+            <div style="float:left; width: 50%; text-align: center;">
                 <!--            <h3 style="margin: 5px">Your Screen</h3>-->
-                <video  style="width: 100%; height: 100%;" id="localVideo2"
+                <video  style="display: inline-block; width:100%; height:100%;" id="localVideo2"
                         poster="/assets/img/sharing.png" autoplay muted></video>
             </div>
 
             <!-- Other person's screen will show up here -->
-            <div style="display:inline-block; width: 50%;">
+            <div style="display:inline-block; width: 50%; text-align: center;">
                 <!--            <h3 style="margin: 5px">Other Person's Screen</h3>-->
-                <video style="width: 100%; height: 100%; object-fit: inherit;" id="remoteVideo2"
+                <video style="display: inline-block; width:100%; height:100%;" id="remoteVideo2"
                        poster="/assets/img/sharing.png" autoplay></video>
             </div>
 
 
             <!-- Button to leave Screen Sharing. -->
-            <div class="box">
-                <button id="leaveButton2" class="btn btn-primary">Leave Screen Sharing</button>
-            </div>
-
-            <div>
-                <button id="leaveMeetingButton" class="btn btn-primary">회의 나가기</button>
-            </div>
-        </canvas>
+<!--            <div class="box">-->
+<!--                <button id="leaveButton2" class="btn btn-primary">Leave Screen Sharing</button>-->
+<!--            </div>-->
+<!--        </canvas>-->
     </section>
 
 

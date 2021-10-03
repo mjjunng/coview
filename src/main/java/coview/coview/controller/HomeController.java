@@ -13,9 +13,4 @@ public class HomeController {
     public String index(){
         return "index";
     }
-
-    @RequestMapping("/coview")
-    public String home(){
-        return "main";
-    }
 }

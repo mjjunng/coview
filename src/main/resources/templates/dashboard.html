@@ -3,40 +3,21 @@
 <head th:replace="fragments/header :: header" />
 
 <style>
-    .masthead-subheading{color: black;}
-    .masthead-subheading{float:left;}
-    .btn btn-primary.btn-xl{display:inline-block;}
+    .section-heading{color: black;, float:left;}
     .portfolio-caption{text-decoration: none;}
-
 </style>
+
 <body id="page-top">
-<!-- nav-->
-<div>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="/coview"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ms-1"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+
+<div th:replace="fragments/nav :: nav"></div>
 
 <!-- Portfolio Grid-->
 <section class="page-section bg-light" id="portfolio">
     <table class="table table-striped">
         <div class="container">
             <div class="text-center">
-                <div class="masthead-subheading">DASHBOARD</div>
-                <a class="btn btn-primary btn-xl" href="/dashboard/new">
+                <h2 class="section-heading text-uppercase">DASHBOARD</h2>
+                <a class="btn btn-primary" href="/dashboard/new" style="margin-top:20px;">
                     회의 생성</a>
             </div>
 
@@ -52,7 +33,7 @@
                                 <a class="portfolio-caption" th:href="@{/meeting/{id} (id=${joinMeeting.meeting.id})}">
                                     <div class="portfolio-caption-heading" th:text="${joinMeeting.name}">
                                         Threads</div>
-                                    <div class="portfolio-caption-subheading text-muted">Illustration</div>
+<!--                                    <div class="portfolio-caption-subheading text-muted">Illustration</div>-->
                                 </a>
                             </div>
                         </div>

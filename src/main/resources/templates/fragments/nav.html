@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div id="page-top"  th:fragment="nav">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="/"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
+            <a class="navbar-brand" href="/" style="text-color:">Coview</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars ms-1"></i>
@@ -13,10 +13,19 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login"
+                    <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/login"
                     >Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/create_account"
+                    <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="/create_account"
                     >Sign up</a></li>
+                    <li  sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="/dashboard"
+                    >Dashboard</a></li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a ><form id="logout" action="/logout" method="POST" >
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <input type="submit" style="border:none; border-right:0px;
+                        border-top:0px; border-left:0px; border-bottom:0px;" value="로그아웃" class="nav-link"/>
+                        </form>
+                        </a>
                 </ul>
             </div>
         </div>

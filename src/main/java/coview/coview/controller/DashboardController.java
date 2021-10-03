@@ -23,7 +23,10 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -38,12 +41,19 @@ public class DashboardController {
      * 회의 목록 조회
      */
     @GetMapping(value = "/dashboard")
-    public String dashboard(Authentication authentication, Model model){
+    public String dashboard(Authentication authentication, Model model, HttpServletResponse response) throws IOException {
         // 현재 회원의 id값을 통해서 회원이 참여하고 있는 meeting List 뿌려줌
-        Member member = findNowMember(authentication);
+        Member member;
+        try{
+            member = findNowMember(authentication);
+        }catch (Exception e){
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('세션이 만료되었습니다. 다시 로그인해주세요'); history.go(-1); </script>");
+            out.flush();
+            return "index";
+        }
         model.addAttribute("joinMeetings", member.getMeetings());
-
-
         return "dashboard";
     }
 

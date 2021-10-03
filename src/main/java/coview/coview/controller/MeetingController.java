@@ -37,14 +37,17 @@ public class MeetingController {
     public String enterMeeting(@PathVariable("id") Long meetingId,
                                Model model){
         Meeting one = meetingService.findOne(meetingId);
-        List<JoinMeeting> joinMeetings = one.getJoinMeetings();
-        List<Member> members = new ArrayList<>();
-        for(int i=0; i<one.getCnt(); i++){
-            members.add(joinMeetings.get(i).getMember());
-        }
+//        List<JoinMeeting> joinMeetings = one.getJoinMeetings();
+//        List<Member> members = new ArrayList<>();
+//        for(int i=0; i<one.getCnt(); i++){
+//            members.add(joinMeetings.get(i).getMember());
+//        }
         model.addAttribute("meetingId", meetingId);
         // 현재 회의에 참여중인 멤버 뿌리기
-        model.addAttribute("members", members);
+        //model.addAttribute("members", members);
+
+        // 회의명 넘기기
+        model.addAttribute("meetingName", one.getName());
 
         return "meeting/meeting";
     }
