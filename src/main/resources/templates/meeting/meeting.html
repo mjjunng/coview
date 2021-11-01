@@ -70,10 +70,10 @@ h2{
             </tr>
             </tbody>
         </span>
-        <div style="float:left; position: relative; top: 40px; margin-left:5px;">
+        <span style="float:left; position: relative; top: 40px; margin-left:30px;">
             <button id="inviteBtn" class="btn btn-primary">멤버 초대하기</button>
             <button id="leaveMeetingButton" class="btn btn-primary" style="margin-left:18px;">회의 나가기</button>
-        </div>
+        </span>
 
         <!-- sharing video  -->
         <div style="display:inline-block; float:right;">
@@ -105,11 +105,10 @@ h2{
 
     <!-- sharing screen   -->
     <section class="screen" style="margin-top:40px; height:60vh;">
-<!--        <canvas id="canvas">-->
-<!--            <button id="drawingBtn"><img src="/assets/img/drawing.png"></button>-->
-            <!-- Your screen will show up here. -->
-
-            <div style="margin-left:50px; margin-bottom:20px;"><img id="shareBtn" src="/assets/img/share.png"></div>
+            <!-- 클릭 : 공유 중지 -> 공유  -->
+            <div style="margin-left:50px; margin-bottom:20px;">
+                <button id="shareBtn" class="btn btn-primary">화면 공유하기</button>
+            </div>
             <div style="float:left; width: 50%; text-align: center;">
                 <!--            <h3 style="margin: 5px">Your Screen</h3>-->
                 <video  style="display: inline-block; width:100%; height:100%;" id="localVideo2"
@@ -123,12 +122,6 @@ h2{
                        poster="/assets/img/sharing.png" autoplay></video>
             </div>
 
-
-            <!-- Button to leave Screen Sharing. -->
-<!--            <div class="box">-->
-<!--                <button id="leaveButton2" class="btn btn-primary">Leave Screen Sharing</button>-->
-<!--            </div>-->
-<!--        </canvas>-->
     </section>
 
 
